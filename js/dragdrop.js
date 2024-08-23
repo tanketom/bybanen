@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stopsList = document.getElementById('stops').querySelector('ul');
     const output = document.getElementById('output');
     const generateButton = document.getElementById('generate');
+    const inputButton = document.getElementById('input');
 
     // Create the grid
     for (let i = 0; i < 100; i++) {
@@ -15,21 +16,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Load stops from timetable.json
-    fetch('json/timetable.json')
-        .then(response => response.json())
-        .then(data => {
-            Object.keys(data).forEach(line => {
-                data[line].forEach(stop => {
-                    const stopItem = document.createElement('li');
-                    stopItem.textContent = stop.name;
-                    stopItem.draggable = true;
-                    stopItem.dataset.line = line;
-                    stopItem.dataset.name = stop.name;
-                    stopItem.style.backgroundColor = line === 'line1' ? 'yellow' : 'orange';
-                    stopsList.appendChild(stopItem);
-                });
+    function loadStops(data) {
+        stopsList.innerHTML = ''; // Clear existing stops
+        Object.keys(data).forEach(line => {
+            data[line].forEach(stop => {
+                const stopItem = document.createElement('li');
+                stopItem.textContent = stop.name;
+                stopItem.draggable = true;
+                stopItem.dataset.line = line;
+                stopItem.dataset.name = stop.name;
+                stopItem.dataset.x = stop.x;
+                stopItem.dataset.y = stop.y;
+                stopItem.style.backgroundColor = line === 'line1' ? 'yellow' : 'orange';
+                stopsList.appendChild(stopItem);
+
+                // Place stop on the grid
+                const cell = grid.querySelector(`div[data-x="${stop.x}"][data-y="${stop.y}"]`);
+                if (cell) {
+                    cell.classList.add('highlight');
+                    cell.style.backgroundColor = stopItem.style.backgroundColor;
+
+                    // Create or update the stop name label
+                    let stopLabel = cell.querySelector('.stop-name');
+                    if (!stopLabel) {
+                        stopLabel = document.createElement('div');
+                        stopLabel.classList.add('stop-name');
+                        cell.appendChild(stopLabel);
+                    }
+                    stopLabel.textContent = stop.name;
+                    stopLabel.style.color = 'white';
+                    stopLabel.style.fontWeight = 'bold';
+                }
             });
         });
+    }
 
     // Handle drag and drop
     let draggedItem = null;
@@ -88,5 +108,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         output.value = JSON.stringify(newTimetable, null, 2);
+    });
+
+    // Input timetable.json
+    inputButton.addEventListener('click', () => {
+        try {
+            const data = JSON.parse(output.value);
+            loadStops(data);
+        } catch (e) {
+            alert('Invalid JSON');
+        }
+    });
+
+    // Delete stops from the grid
+    grid.addEventListener('dblclick', (e) => {
+        if (e.target.classList.contains('highlight')) {
+            const stopName = e.target.querySelector('.stop-name').textContent;
+            const stopItem = stopsList.querySelector(`li[data-name="${stopName}"]`);
+            if (stopItem) {
+                stopsList.removeChild(stopItem);
+            }
+            e.target.classList.remove('highlight');
+            e.target.style.backgroundColor = '#333';
+            e.target.innerHTML = '';
+        }
     });
 });
