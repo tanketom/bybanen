@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopElement.classList.add('stop');
                     stopElement.style.left = `${stop.x}px`;
                     stopElement.style.top = `${stop.y}px`;
-                    stopElement.style.backgroundColor = color;
+                    stopElement.style.backgroundColor = 'white';
+                    stopElement.style.borderColor = 'black';
                     stopElement.style.setProperty('--stop-color', color);
                     map.appendChild(stopElement);
 
@@ -38,10 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                         const d = `M${prevStop.x + 5},${prevStop.y + 5} Q${midX},${midY} ${stop.x + 5},${stop.y + 5}`;
                         pathElement.setAttribute('d', d);
-                        pathElement.setAttribute('stroke', 'white');
+                        pathElement.setAttribute('stroke', color);
                         pathElement.setAttribute('stroke-width', '3');
                         pathElement.setAttribute('fill', 'none');
-                        pathElement.setAttribute('stroke-dasharray', '5,5');
                         svg.appendChild(pathElement);
                     }
                 });

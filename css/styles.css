@@ -7,99 +7,17 @@ body {
 
 #map {
     position: relative;
-    width: 100vw; /* Full width of the viewport */
-    height: 100vh; /* Full height of the viewport */
+    width: 100vw;
+    height: 100vh;
 }
 
 .stop {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: yellow;
-    border-radius: 50%;
-}
-
-.stop-name {
-    position: absolute;
-    color: white;
-    font-size: 12px;
-    transform: translate(15px, -5px);
-}
-
-.blinking {
-    animation: blinking 1s infinite;
-}
-
-@keyframes blinking {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-.connector {
-    position: absolute;
-    width: 3px;
-    height: 3px;
     background-color: white;
+    border: 2px solid black;
     border-radius: 50%;
-}
-
-.line {
-    position: absolute;
-    background-color: white;
-    width: 3px;
-}
-
-.blinking-segment {
-    position: absolute;
-    background-color: yellow;
-    width: 3px;
-    animation: blinking 1s infinite;
-}
-
-/* Styles for dragdrop.html */
-#grid {
-    display: grid;
-    grid-template-columns: repeat(100, 10px);
-    grid-template-rows: repeat(100, 10px);
-    gap: 1px;
-    margin: 20px;
-}
-
-#grid div {
-    width: 10px;
-    height: 10px;
-    background-color: #333;
-}
-
-#grid .highlight {
-    background-color: yellow;
-}
-
-#stops {
-    margin: 20px;
-}
-
-#stops ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-#stops li {
-    background-color: yellow;
-    color: black;
-    padding: 5px;
-    margin: 5px 0;
-    cursor: grab;
-}
-
-#copypaste {
-    margin: 20px;
-    padding: 10px 20px;
-    background-color: yellow;
-    color: black;
-    border: none;
-    cursor: pointer;
 }
 
 .stop-name {
@@ -111,11 +29,17 @@ body {
 }
 
 .blinking {
-    animation: blinking 1s infinite;
+    animation: glowing 1s infinite;
 }
 
-@keyframes blinking {
-    0% { background-color: var(--stop-color); }
-    50% { background-color: white; }
-    100% { background-color: var(--stop-color); }
+@keyframes glowing {
+    0% { box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.5); }
+    50% { box-shadow: 0 0 10px 10px rgba(255, 255, 255, 1); }
+    100% { box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.5); }
+}
+
+.line {
+    position: absolute;
+    background-color: white;
+    width: 3px;
 }
