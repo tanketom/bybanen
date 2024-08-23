@@ -26,11 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopName.textContent = stop.name;
                     map.appendChild(stopName);
 
-                    // Draw dotted and curving line to the next stop
+                    // Draw mainly straight lines with smooth curves to the next stop
                     if (index > 0) {
                         const prevStop = stops[index - 1];
                         const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        const d = `M${prevStop.x + 5},${prevStop.y + 5} Q${(prevStop.x + stop.x) / 2},${(prevStop.y + stop.y) / 2 - 20} ${stop.x + 5},${stop.y + 5}`;
+                        const midX = (prevStop.x + stop.x) / 2;
+                        const midY = (prevStop.y + stop.y) / 2;
+                        const d = `M${prevStop.x + 5},${prevStop.y + 5} Q${midX},${midY} ${stop.x + 5},${stop.y + 5}`;
                         pathElement.setAttribute('d', d);
                         pathElement.setAttribute('stroke', 'white');
                         pathElement.setAttribute('stroke-width', '3');
