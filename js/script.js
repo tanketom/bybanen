@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopElement.style.left = `${stop.x}px`;
                     stopElement.style.top = `${stop.y}px`;
                     stopElement.style.backgroundColor = color;
+                    stopElement.style.setProperty('--stop-color', color);
                     map.appendChild(stopElement);
 
                     // Create a stop name element
@@ -25,17 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopName.textContent = stop.name;
                     map.appendChild(stopName);
 
-                    // Draw line to the next stop
+                    // Draw dotted and curving line to the next stop
                     if (index > 0) {
                         const prevStop = stops[index - 1];
-                        const lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                        lineElement.setAttribute('x1', prevStop.x);
-                        lineElement.setAttribute('y1', prevStop.y);
-                        lineElement.setAttribute('x2', stop.x);
-                        lineElement.setAttribute('y2', stop.y);
-                        lineElement.setAttribute('stroke', 'white');
-                        lineElement.setAttribute('stroke-width', '3');
-                        svg.appendChild(lineElement);
+                        const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        const d = `M${prevStop.x + 5},${prevStop.y + 5} Q${(prevStop.x + stop.x) / 2},${(prevStop.y + stop.y) / 2 - 20} ${stop.x + 5},${stop.y + 5}`;
+                        pathElement.setAttribute('d', d);
+                        pathElement.setAttribute('stroke', 'white');
+                        pathElement.setAttribute('stroke-width', '3');
+                        pathElement.setAttribute('fill', 'none');
+                        pathElement.setAttribute('stroke-dasharray', '5,5');
+                        svg.appendChild(pathElement);
                     }
                 });
 

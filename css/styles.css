@@ -109,3 +109,13 @@ body {
     font-weight: bold;
     transform: translate(15px, -5px);
 }
+
+.blinking {
+    animation: blinking 1s infinite;
+}
+
+@keyframes blinking {
+    0% { background-color: var(--stop-color); }
+    50% { background-color: white; }
+    100% { background-color: var(--stop-color); }
+}
