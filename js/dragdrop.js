@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
             stop.style.position = 'absolute';
             stop.style.left = `${cell.offsetLeft}px`;
             stop.style.top = `${cell.offsetTop}px`;
+            stop.dataset.x = cell.offsetLeft;
+            stop.dataset.y = cell.offsetTop;
             updateOutput();
         });
         grid.appendChild(cell);
@@ -63,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (li.parentElement.classList.contains('grid-cell')) {
                 stops.line1.push({
                     name: li.textContent,
-                    x: parseInt(li.parentElement.style.left, 10),
-                    y: parseInt(li.parentElement.style.top, 10)
+                    x: parseInt(li.dataset.x, 10),
+                    y: parseInt(li.dataset.y, 10)
                 });
             }
         });
@@ -72,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (li.parentElement.classList.contains('grid-cell')) {
                 stops.line2.push({
                     name: li.textContent,
-                    x: parseInt(li.parentElement.style.left, 10),
-                    y: parseInt(li.parentElement.style.top, 10)
+                    x: parseInt(li.dataset.x, 10),
+                    y: parseInt(li.dataset.y, 10)
                 });
             }
         });
