@@ -1,13 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const map = document.getElementById('map'); // Get the map element
+    const map = document.getElementById('map');
 
-    // Function to load stops for a given line and color
     function loadStops(line, color) {
-        fetch('json/timetable.json') // Fetch the timetable JSON file
-            .then(response => response.json()) // Parse the JSON response
+        fetch('json/timetable.json')
+            .then(response => response.json())
             .then(data => {
                 data[line].forEach((stop, index) => {
-                    // Create a stop element
                     const stopElement = document.createElement('div');
                     stopElement.classList.add('stop');
                     stopElement.style.left = `${stop.x}px`;
@@ -15,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopElement.style.backgroundColor = color;
                     map.appendChild(stopElement);
 
-                    // Create a stop name element
                     const stopName = document.createElement('div');
                     stopName.classList.add('stop-name');
                     stopName.style.left = `${stop.x}px`;
@@ -23,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopName.textContent = stop.name;
                     map.appendChild(stopName);
 
-                    // Create a line element between stops
                     if (index > 0) {
                         const prevStop = data[line][index - 1];
                         const lineElement = document.createElement('div');
@@ -34,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         lineElement.style.height = `${Math.abs(stop.y - prevStop.y)}px`;
                         map.appendChild(lineElement);
 
-                        // Create a connector element between stops
                         const connector = document.createElement('div');
                         connector.classList.add('connector');
                         connector.style.left = `${(stop.x + prevStop.x) / 2}px`;
@@ -43,35 +38,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                // Simulate tram movement
                 let currentIndex = 0;
-                let direction = 1; // 1 for forward, -1 for backward
+                let direction = 1;
+                const blinkingSegment = document.createElement('div');
+                blinkingSegment.classList.add('blinking-segment');
+                map.appendChild(blinkingSegment);
+
                 setInterval(() => {
                     const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
-                    stops.forEach(stop => stop.classList.remove('blinking')); // Remove blinking class from all stops
-                    stops[currentIndex].classList.add('blinking'); // Add blinking class to the current stop
+                    stops.forEach(stop => stop.classList.remove('blinking'));
+                    stops[currentIndex].classList.add('blinking');
 
-                    // Create a blinking segment between the current and previous stop
                     const prevIndex = (currentIndex === 0) ? stops.length - 1 : currentIndex - 1;
                     const prevStop = stops[prevIndex];
                     const currentStop = stops[currentIndex];
 
-                    const blinkingSegment = document.createElement('div');
-                    blinkingSegment.classList.add('blinking-segment');
                     blinkingSegment.style.left = `${(parseFloat(prevStop.style.left) + parseFloat(currentStop.style.left)) / 2}px`;
                     blinkingSegment.style.top = `${(parseFloat(prevStop.style.top) + parseFloat(currentStop.style.top)) / 2}px`;
-                    map.appendChild(blinkingSegment);
 
-                    // Update the current index based on direction
                     currentIndex += direction;
                     if (currentIndex === stops.length || currentIndex === -1) {
-                        direction *= -1; // Reverse direction
-                        currentIndex += direction; // Adjust index to stay within bounds
+                        direction *= -1;
+                        currentIndex += direction;
                     }
-                }, 1000); // Update every second
-            });
+                }, 1000);
+            })
+            .catch(error => console.error('Error loading timetable:', error));
     }
 
-    loadStops('line1', 'yellow'); // Load stops for Line 1
-    loadStops('line2', 'orange'); // Load stops for Line 2
+    loadStops('line1', 'yellow');
+    loadStops('line2', 'orange');
 });
