@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopItem.draggable = true;
                     stopItem.dataset.line = line;
                     stopItem.dataset.name = stop.name;
+                    stopItem.style.backgroundColor = line === 'line1' ? 'yellow' : 'orange';
                     stopsList.appendChild(stopItem);
                 });
             });
@@ -48,6 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
             draggedItem.dataset.x = x;
             draggedItem.dataset.y = y;
             e.target.classList.add('highlight');
+            e.target.style.backgroundColor = draggedItem.style.backgroundColor;
+
+            // Create or update the stop name label
+            let stopLabel = e.target.querySelector('.stop-name');
+            if (!stopLabel) {
+                stopLabel = document.createElement('div');
+                stopLabel.classList.add('stop-name');
+                e.target.appendChild(stopLabel);
+            }
+            stopLabel.textContent = draggedItem.dataset.name;
+            stopLabel.style.color = draggedItem.style.backgroundColor === 'yellow' ? 'black' : 'white';
         }
     });
 

@@ -101,3 +101,10 @@ body {
     border: none;
     cursor: pointer;
 }
+
+.stop-name {
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    transform: translate(15px, -5px);
+}
