@@ -1,86 +1,72 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('grid');
-    const line1Stops = document.getElementById('line1-stops');
-    const line2Stops = document.getElementById('line2-stops');
+    const stopsList = document.getElementById('stops').querySelector('ul');
     const output = document.getElementById('output');
+    const generateButton = document.getElementById('generate');
 
-    // Create grid cells
-    for (let i = 0; i < 10000; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('grid-cell');
-        cell.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            cell.classList.add('highlight');
-        });
-        cell.addEventListener('dragleave', () => {
-            cell.classList.remove('highlight');
-        });
-        cell.addEventListener('drop', (e) => {
-            e.preventDefault();
-            cell.classList.remove('highlight');
-            const id = e.dataTransfer.getData('text');
-            const stop = document.getElementById(id);
-            cell.appendChild(stop);
-            stop.style.position = 'absolute';
-            stop.style.left = `${cell.offsetLeft}px`;
-            stop.style.top = `${cell.offsetTop}px`;
-            stop.dataset.x = cell.offsetLeft;
-            stop.dataset.y = cell.offsetTop;
-            console.log(`Stop ${stop.textContent} placed at (${stop.dataset.x}, ${stop.dataset.y})`);
-            updateOutput();
-        });
-        grid.appendChild(cell);
+    // Create the grid
+    for (let i = 0; i < 100; i++) {
+        for (let j = 0; j < 100; j++) {
+            const cell = document.createElement('div');
+            cell.dataset.x = j;
+            cell.dataset.y = i;
+            grid.appendChild(cell);
+        }
     }
 
     // Load stops from timetable.json
     fetch('json/timetable.json')
         .then(response => response.json())
         .then(data => {
-            data.line1.forEach(stop => {
-                const li = document.createElement('li');
-                li.textContent = stop.name;
-                li.id = `line1-${stop.name}`;
-                li.draggable = true;
-                li.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text', li.id);
+            Object.keys(data).forEach(line => {
+                data[line].forEach(stop => {
+                    const stopItem = document.createElement('li');
+                    stopItem.textContent = stop.name;
+                    stopItem.draggable = true;
+                    stopItem.dataset.line = line;
+                    stopItem.dataset.name = stop.name;
+                    stopsList.appendChild(stopItem);
                 });
-                line1Stops.appendChild(li);
-            });
-
-            data.line2.forEach(stop => {
-                const li = document.createElement('li');
-                li.textContent = stop.name;
-                li.id = `line2-${stop.name}`;
-                li.draggable = true;
-                li.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text', li.id);
-                });
-                line2Stops.appendChild(li);
             });
         });
 
-    // Update the output text area with the new coordinates
-    function updateOutput() {
-        const stops = { line1: [], line2: [] };
-        document.querySelectorAll('#line1-stops li').forEach(li => {
-            if (li.parentElement.classList.contains('grid-cell')) {
-                stops.line1.push({
-                    name: li.textContent,
-                    x: parseInt(li.dataset.x, 10),
-                    y: parseInt(li.dataset.y, 10)
-                });
+    // Handle drag and drop
+    let draggedItem = null;
+
+    stopsList.addEventListener('dragstart', (e) => {
+        draggedItem = e.target;
+    });
+
+    grid.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+
+    grid.addEventListener('drop', (e) => {
+        if (draggedItem) {
+            const x = e.target.dataset.x;
+            const y = e.target.dataset.y;
+            draggedItem.dataset.x = x;
+            draggedItem.dataset.y = y;
+            e.target.classList.add('highlight');
+        }
+    });
+
+    // Generate new timetable.json
+    generateButton.addEventListener('click', () => {
+        const newTimetable = {};
+
+        stopsList.querySelectorAll('li').forEach(stop => {
+            const line = stop.dataset.line;
+            if (!newTimetable[line]) {
+                newTimetable[line] = [];
             }
+            newTimetable[line].push({
+                name: stop.dataset.name,
+                x: parseInt(stop.dataset.x),
+                y: parseInt(stop.dataset.y)
+            });
         });
-        document.querySelectorAll('#line2-stops li').forEach(li => {
-            if (li.parentElement.classList.contains('grid-cell')) {
-                stops.line2.push({
-                    name: li.textContent,
-                    x: parseInt(li.dataset.x, 10),
-                    y: parseInt(li.dataset.y, 10)
-                });
-            }
-        });
-        console.log('Updated stops:', stops);
-        output.value = JSON.stringify(stops, null, 4);
-    }
+
+        output.value = JSON.stringify(newTimetable, null, 2);
+    });
 });
