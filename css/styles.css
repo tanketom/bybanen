@@ -56,3 +56,44 @@ body {
     width: 3px;
     animation: blinking 1s infinite;
 }
+
+/* Styles for dragdrop.html */
+#grid {
+    display: grid;
+    grid-template-columns: repeat(100, 10px);
+    grid-template-rows: repeat(100, 10px);
+    gap: 1px;
+    margin: 20px;
+}
+
+#grid div {
+    width: 10px;
+    height: 10px;
+    background-color: #333;
+}
+
+#stops {
+    margin: 20px;
+}
+
+#stops ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#stops li {
+    background-color: yellow;
+    color: black;
+    padding: 5px;
+    margin: 5px 0;
+    cursor: grab;
+}
+
+#copypaste {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: yellow;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
