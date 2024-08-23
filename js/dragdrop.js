@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stop.style.top = `${cell.offsetTop}px`;
             stop.dataset.x = cell.offsetLeft;
             stop.dataset.y = cell.offsetTop;
+            console.log(`Stop ${stop.textContent} placed at (${stop.dataset.x}, ${stop.dataset.y})`);
             updateOutput();
         });
         grid.appendChild(cell);
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
+        console.log('Updated stops:', stops);
         output.value = JSON.stringify(stops, null, 4);
     }
 });
