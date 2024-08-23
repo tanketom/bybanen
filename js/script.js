@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 data[line].forEach((stop, index) => {
                     const stopElement = document.createElement('div');
                     stopElement.classList.add('stop');
-                    stopElement.style.left = `${stop.x}%`;
-                    stopElement.style.top = `${stop.y}%`;
+                    stopElement.style.left = `${stop.x}px`;
+                    stopElement.style.top = `${stop.y}px`;
                     stopElement.style.backgroundColor = color;
                     map.appendChild(stopElement);
 
                     const stopName = document.createElement('div');
                     stopName.classList.add('stop-name');
-                    stopName.style.left = `${stop.x}%`;
-                    stopName.style.top = `${stop.y}%`;
+                    stopName.style.left = `${stop.x}px`;
+                    stopName.style.top = `${stop.y}px`;
                     stopName.textContent = stop.name;
                     map.appendChild(stopName);
 
@@ -24,16 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         const prevStop = data[line][index - 1];
                         const lineElement = document.createElement('div');
                         lineElement.classList.add('line');
-                        lineElement.style.left = `${Math.min(stop.x, prevStop.x)}%`;
-                        lineElement.style.top = `${Math.min(stop.y, prevStop.y)}%`;
-                        lineElement.style.width = `${Math.abs(stop.x - prevStop.x)}%`;
-                        lineElement.style.height = `${Math.abs(stop.y - prevStop.y)}%`;
+                        lineElement.style.left = `${Math.min(stop.x, prevStop.x)}px`;
+                        lineElement.style.top = `${Math.min(stop.y, prevStop.y)}px`;
+                        lineElement.style.width = `${Math.abs(stop.x - prevStop.x)}px`;
+                        lineElement.style.height = `${Math.abs(stop.y - prevStop.y)}px`;
                         map.appendChild(lineElement);
 
                         const connector = document.createElement('div');
                         connector.classList.add('connector');
-                        connector.style.left = `${(stop.x + prevStop.x) / 2}%`;
-                        connector.style.top = `${(stop.y + prevStop.y) / 2}%`;
+                        connector.style.left = `${(stop.x + prevStop.x) / 2}px`;
+                        connector.style.top = `${(stop.y + prevStop.y) / 2}px`;
                         map.appendChild(connector);
                     }
                 });
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const blinkingSegment = document.createElement('div');
                     blinkingSegment.classList.add('blinking-segment');
-                    blinkingSegment.style.left = `${(parseFloat(prevStop.style.left) + parseFloat(currentStop.style.left)) / 2}%`;
-                    blinkingSegment.style.top = `${(parseFloat(prevStop.style.top) + parseFloat(currentStop.style.top)) / 2}%`;
+                    blinkingSegment.style.left = `${(parseFloat(prevStop.style.left) + parseFloat(currentStop.style.left)) / 2}px`;
+                    blinkingSegment.style.top = `${(parseFloat(prevStop.style.top) + parseFloat(currentStop.style.top)) / 2}px`;
                     map.appendChild(blinkingSegment);
 
                     currentIndex = (currentIndex + 1) % stops.length;

@@ -7,8 +7,8 @@ body {
 
 #map {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    width: 800px;
+    height: 600px;
 }
 
 .stop {
@@ -38,8 +38,8 @@ body {
 
 .connector {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 3px;
+    height: 3px;
     background-color: white;
     border-radius: 50%;
 }
@@ -47,12 +47,12 @@ body {
 .line {
     position: absolute;
     background-color: white;
-    width: 2px;
+    width: 3px;
 }
 
 .blinking-segment {
     position: absolute;
     background-color: yellow;
-    width: 2px;
+    width: 3px;
     animation: blinking 1s infinite;
 }
