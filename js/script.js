@@ -1,15 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     const map = document.getElementById('map');
     const svg = document.getElementById('lines');
+    const clock = document.createElement('div');
+    clock.id = 'clock';
+    clock.style.position = 'absolute';
+    clock.style.bottom = '10px';
+    clock.style.right = '10px';
+    clock.style.color = 'white';
+    clock.style.fontSize = '20px';
+    map.appendChild(clock);
 
-    // Function to load stops for a given line and color
     function loadStops(line, color) {
-        fetch('json/timetable.json') // Fetch the timetable JSON file
-            .then(response => response.json()) // Parse the JSON response
+        fetch('json/timetable.json')
+            .then(response => response.json())
             .then(data => {
                 const stops = data[line];
                 stops.forEach((stop, index) => {
-                    // Create a stop element
                     const stopElement = document.createElement('div');
                     stopElement.classList.add('stop');
                     stopElement.style.left = `${stop.x}px`;
@@ -18,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopElement.style.setProperty('--stop-color', color);
                     map.appendChild(stopElement);
 
-                    // Create a stop name element
                     const stopName = document.createElement('div');
                     stopName.classList.add('stop-name');
                     stopName.style.left = `${stop.x}px`;
@@ -26,12 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopName.textContent = stop.name;
                     map.appendChild(stopName);
 
-                    // Draw mainly straight lines with smooth curves to the next stop
                     if (index > 0) {
                         const prevStop = stops[index - 1];
-                        const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                         const midX = (prevStop.x + stop.x) / 2;
                         const midY = (prevStop.y + stop.y) / 2;
+                        const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                         const d = `M${prevStop.x + 5},${prevStop.y + 5} Q${midX},${midY} ${stop.x + 5},${stop.y + 5}`;
                         pathElement.setAttribute('d', d);
                         pathElement.setAttribute('stroke', 'white');
@@ -42,24 +46,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                // Simulate tram movement
                 let currentIndex = 0;
-                let direction = 1; // 1 for forward, -1 for backward
+                let direction = 1;
+                let currentTime = 0;
+                const speedFactor = 60; // 60 times faster
+                const updateInterval = 1000 / speedFactor; // Update every second divided by speed factor
+
                 setInterval(() => {
                     const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
-                    stops.forEach(stop => stop.classList.remove('blinking')); // Remove blinking class from all stops
-                    stops[currentIndex].classList.add('blinking'); // Add blinking class to the current stop
+                    stops.forEach(stop => stop.classList.remove('blinking'));
+                    stops[currentIndex].classList.add('blinking');
 
-                    // Update the current index based on direction
+                    currentTime += stops[currentIndex].dataset.travelTime * speedFactor;
+                    const hours = Math.floor(currentTime / 60) % 24;
+                    const minutes = currentTime % 60;
+                    clock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
                     currentIndex += direction;
                     if (currentIndex === stops.length || currentIndex === -1) {
-                        direction *= -1; // Reverse direction
-                        currentIndex += direction; // Adjust index to stay within bounds
+                        direction *= -1;
+                        currentIndex += direction;
                     }
-                }, 1000); // Update every second
+                }, updateInterval);
             });
     }
 
-    loadStops('line1', 'yellow'); // Load stops for Line 1
-    loadStops('line2', 'orange'); // Load stops for Line 2
+    loadStops('line1', 'yellow');
+    loadStops('line2', 'orange');
 });

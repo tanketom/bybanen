@@ -1,191 +1,44 @@
 {
     "line1": [
-      {
-        "name": "Byparken",
-        "x": 135.0,
-        "y": 105.0
-      },
-      {
-        "name": "Kaigaten",
-        "x": 165.0,
-        "y": 150.0
-      },
-      {
-        "name": "Nonneseter",
-        "x": 195.0,
-        "y": 195.0
-      },
-      {
-        "name": "Bergen Busstasjon",
-        "x": 225.0,
-        "y": 240.0
-      },
-      {
-        "name": "Nygård",
-        "x": 210.0,
-        "y": 300.0
-      },
-      {
-        "name": "Florida",
-        "x": 225.0,
-        "y": 345.0
-      },
-      {
-        "name": "Danmarks Plass",
-        "x": 240.0,
-        "y": 390.0
-      },
-      {
-        "name": "Kronstad",
-        "x": 255.0,
-        "y": 435.0
-      },
-      {
-        "name": "Brann Stadion",
-        "x": 270.0,
-        "y": 480.0
-      },
-      {
-        "name": "Wergeland",
-        "x": 285.0,
-        "y": 525.0
-      },
-      {
-        "name": "Sletten",
-        "x": 300.0,
-        "y": 570.0
-      },
-      {
-        "name": "Slettebakken",
-        "x": 315.0,
-        "y": 615.0
-      },
-      {
-        "name": "Fantoft",
-        "x": 330.0,
-        "y": 660.0
-      },
-      {
-        "name": "Paradis",
-        "x": 345.0,
-        "y": 705.0
-      },
-      {
-        "name": "Hop",
-        "x": 360.0,
-        "y": 750.0
-      },
-      {
-        "name": "Nesttun Terminal",
-        "x": 375.0,
-        "y": 795.0
-      },
-      {
-        "name": "Nesttun Sentrum",
-        "x": 390.0,
-        "y": 840.0
-      },
-      {
-        "name": "Skjoldskiftet",
-        "x": 405.0,
-        "y": 885.0
-      },
-      {
-        "name": "Mårdalen",
-        "x": 420.0,
-        "y": 930.0
-      },
-      {
-        "name": "Skjold",
-        "x": 435.0,
-        "y": 975.0
-      },
-      {
-        "name": "Lagunen Terminal",
-        "x": 450.0,
-        "y": 1020.0
-      },
-      {
-        "name": "Råstølen",
-        "x": 465.0,
-        "y": 1065.0
-      },
-      {
-        "name": "Sandslivegen",
-        "x": 480.0,
-        "y": 1110.0
-      },
-      {
-        "name": "Sandslimarka",
-        "x": 495.0,
-        "y": 1155.0
-      },
-      {
-        "name": "Kokstad",
-        "x": 510.0,
-        "y": 1200.0
-      },
-      {
-        "name": "Birkelandsskiftet Terminal",
-        "x": 525.0,
-        "y": 1245.0
-      },
-      {
-        "name": "Kokstadflaten",
-        "x": 540.0,
-        "y": 1290.0
-      },
-      {
-        "name": "Bergen Lufthavn",
-        "x": 555.0,
-        "y": 1335.0
-      }
+      {"name": "Byparken", "x": 135.0, "y": 105.0, "travelTime": 0},
+      {"name": "Kaigaten", "x": 165.0, "y": 150.0, "travelTime": 2},
+      {"name": "Nonneseter", "x": 195.0, "y": 195.0, "travelTime": 1},
+      {"name": "Bergen Busstasjon", "x": 225.0, "y": 240.0, "travelTime": 2},
+      {"name": "Nygård", "x": 210.0, "y": 300.0, "travelTime": 2},
+      {"name": "Florida", "x": 225.0, "y": 345.0, "travelTime": 2},
+      {"name": "Danmarks Plass", "x": 240.0, "y": 390.0, "travelTime": 2},
+      {"name": "Kronstad", "x": 255.0, "y": 435.0, "travelTime": 2},
+      {"name": "Brann Stadion", "x": 270.0, "y": 480.0, "travelTime": 2},
+      {"name": "Wergeland", "x": 285.0, "y": 525.0, "travelTime": 2},
+      {"name": "Sletten", "x": 300.0, "y": 570.0, "travelTime": 2},
+      {"name": "Slettebakken", "x": 315.0, "y": 615.0, "travelTime": 2},
+      {"name": "Fantoft", "x": 330.0, "y": 660.0, "travelTime": 2},
+      {"name": "Paradis", "x": 345.0, "y": 705.0, "travelTime": 2},
+      {"name": "Hop", "x": 360.0, "y": 750.0, "travelTime": 2},
+      {"name": "Nesttun Terminal", "x": 375.0, "y": 795.0, "travelTime": 2},
+      {"name": "Nesttun Sentrum", "x": 390.0, "y": 840.0, "travelTime": 2},
+      {"name": "Skjoldskiftet", "x": 405.0, "y": 885.0, "travelTime": 2},
+      {"name": "Mårdalen", "x": 420.0, "y": 930.0, "travelTime": 2},
+      {"name": "Skjold", "x": 435.0, "y": 975.0, "travelTime": 2},
+      {"name": "Lagunen Terminal", "x": 450.0, "y": 1020.0, "travelTime": 2},
+      {"name": "Råstølen", "x": 465.0, "y": 1065.0, "travelTime": 2},
+      {"name": "Sandslivegen", "x": 480.0, "y": 1110.0, "travelTime": 2},
+      {"name": "Sandslimarka", "x": 495.0, "y": 1155.0, "travelTime": 2},
+      {"name": "Kokstad", "x": 510.0, "y": 1200.0, "travelTime": 2},
+      {"name": "Birkelandsskiftet Terminal", "x": 525.0, "y": 1245.0, "travelTime": 2},
+      {"name": "Kokstadflaten", "x": 540.0, "y": 1290.0, "travelTime": 2},
+      {"name": "Bergen Lufthavn", "x": 555.0, "y": 1335.0, "travelTime": 2}
     ],
     "line2": [
-      {
-        "name": "Kaigaten",
-        "x": 165.0,
-        "y": 150.0
-      },
-      {
-        "name": "Nonneseter",
-        "x": 195.0,
-        "y": 195.0
-      },
-      {
-        "name": "Bergen Busstasjon",
-        "x": 225.0,
-        "y": 240.0
-      },
-      {
-        "name": "Fløen",
-        "x": 345.0,
-        "y": 285.0
-      },
-      {
-        "name": "Haukeland sjukehus",
-        "x": 390.0,
-        "y": 315.0
-      },
-      {
-        "name": "Kronstad",
-        "x": 255.0,
-        "y": 435.0
-      },
-      {
-        "name": "Mindemyren",
-        "x": 225.0,
-        "y": 495.0
-      },
-      {
-        "name": "Kristianborg",
-        "x": 165.0,
-        "y": 555.0
-      },
-      {
-        "name": "Fyllingsdalen Terminal",
-        "x": 15.0,
-        "y": 615.0
-      }
+      {"name": "Kaigaten", "x": 165.0, "y": 150.0, "travelTime": 0},
+      {"name": "Nonneseter", "x": 195.0, "y": 195.0, "travelTime": 2},
+      {"name": "Bergen Busstasjon", "x": 225.0, "y": 240.0, "travelTime": 2},
+      {"name": "Fløen", "x": 345.0, "y": 285.0, "travelTime": 3},
+      {"name": "Haukeland sjukehus", "x": 390.0, "y": 315.0, "travelTime": 2},
+      {"name": "Kronstad", "x": 255.0, "y": 435.0, "travelTime": 2},
+      {"name": "Mindemyren", "x": 225.0, "y": 495.0, "travelTime": 2},
+      {"name": "Kristianborg", "x": 165.0, "y": 555.0, "travelTime": 2},
+      {"name": "Fyllingsdalen Terminal", "x": 15.0, "y": 615.0, "travelTime": 3}
     ]
-  }  
+  }
+  
