@@ -59,7 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.appendChild(stopLabel);
             }
             stopLabel.textContent = draggedItem.dataset.name;
-            stopLabel.style.color = draggedItem.style.backgroundColor === 'yellow' ? 'black' : 'white';
+            stopLabel.style.color = 'white';
+            stopLabel.style.fontWeight = 'bold';
+        }
+    });
+
+    // Allow dragging of stops already placed on the grid
+    grid.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('highlight')) {
+            draggedItem = stopsList.querySelector(`li[data-name="${e.target.querySelector('.stop-name').textContent}"]`);
         }
     });
 
