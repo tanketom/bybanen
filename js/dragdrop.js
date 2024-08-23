@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('grid');
     const line1Stops = document.getElementById('line1-stops');
     const line2Stops = document.getElementById('line2-stops');
-    const copypasteButton = document.getElementById('copypaste');
+    const output = document.getElementById('output');
 
     // Create grid cells
     for (let i = 0; i < 10000; i++) {
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stop.style.position = 'absolute';
             stop.style.left = `${cell.offsetLeft}px`;
             stop.style.top = `${cell.offsetTop}px`;
+            updateOutput();
         });
         grid.appendChild(cell);
     }
@@ -55,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-    // Copy coordinates to clipboard
-    copypasteButton.addEventListener('click', () => {
+    // Update the output text area with the new coordinates
+    function updateOutput() {
         const stops = { line1: [], line2: [] };
         document.querySelectorAll('#line1-stops li').forEach(li => {
             if (li.parentElement.classList.contains('grid-cell')) {
@@ -76,8 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
-        navigator.clipboard.writeText(JSON.stringify(stops, null, 4)).then(() => {
-            alert('Coordinates copied to clipboard!');
-        });
-    });
+        output.value = JSON.stringify(stops, null, 4);
+    }
 });
