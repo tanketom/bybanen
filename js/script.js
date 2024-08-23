@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const map = document.getElementById('map');
+    const svg = document.getElementById('lines');
 
     // Function to load stops for a given line and color
     function loadStops(line, color) {
         fetch('json/timetable.json') // Fetch the timetable JSON file
             .then(response => response.json()) // Parse the JSON response
             .then(data => {
-                data[line].forEach((stop) => {
+                const stops = data[line];
+                stops.forEach((stop, index) => {
                     // Create a stop element
                     const stopElement = document.createElement('div');
                     stopElement.classList.add('stop');
@@ -22,6 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopName.style.top = `${stop.y}px`;
                     stopName.textContent = stop.name;
                     map.appendChild(stopName);
+
+                    // Draw line to the next stop
+                    if (index > 0) {
+                        const prevStop = stops[index - 1];
+                        const lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        lineElement.setAttribute('x1', prevStop.x);
+                        lineElement.setAttribute('y1', prevStop.y);
+                        lineElement.setAttribute('x2', stop.x);
+                        lineElement.setAttribute('y2', stop.y);
+                        lineElement.setAttribute('stroke', 'white');
+                        lineElement.setAttribute('stroke-width', '3');
+                        svg.appendChild(lineElement);
+                    }
                 });
 
                 // Simulate tram movement
