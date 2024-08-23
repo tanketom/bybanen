@@ -1,43 +1,191 @@
 {
     "line1": [
-        {"name": "Byparken", "x": 50, "y": 50},
-        {"name": "Kaigaten", "x": 100, "y": 50},
-        {"name": "Nonneseter", "x": 150, "y": 50},
-        {"name": "Bergen Busstasjon", "x": 200, "y": 50},
-        {"name": "Nygård", "x": 250, "y": 50},
-        {"name": "Florida", "x": 300, "y": 50},
-        {"name": "Danmarks Plass", "x": 350, "y": 50},
-        {"name": "Kronstad", "x": 400, "y": 50},
-        {"name": "Brann Stadion", "x": 450, "y": 50},
-        {"name": "Wergeland", "x": 500, "y": 50},
-        {"name": "Sletten", "x": 550, "y": 50},
-        {"name": "Slettebakken", "x": 600, "y": 50},
-        {"name": "Fantoft", "x": 650, "y": 50},
-        {"name": "Paradis", "x": 700, "y": 50},
-        {"name": "Hop", "x": 750, "y": 50},
-        {"name": "Nesttun Terminal", "x": 800, "y": 50},
-        {"name": "Nesttun Sentrum", "x": 850, "y": 50},
-        {"name": "Skjoldskiftet", "x": 900, "y": 50},
-        {"name": "Mårdalen", "x": 950, "y": 50},
-        {"name": "Skjold", "x": 1000, "y": 50},
-        {"name": "Lagunen Terminal", "x": 1050, "y": 50},
-        {"name": "Råstølen", "x": 1100, "y": 50},
-        {"name": "Sandslivegen", "x": 1150, "y": 50},
-        {"name": "Sandslimarka", "x": 1200, "y": 50},
-        {"name": "Kokstad", "x": 1250, "y": 50},
-        {"name": "Birkelandsskiftet Terminal", "x": 1300, "y": 50},
-        {"name": "Kokstadflaten", "x": 1350, "y": 50},
-        {"name": "Bergen Lufthavn", "x": 1400, "y": 50}
+      {
+        "name": "Byparken",
+        "x": 90,
+        "y": 70
+      },
+      {
+        "name": "Kaigaten",
+        "x": 110,
+        "y": 100
+      },
+      {
+        "name": "Nonneseter",
+        "x": 130,
+        "y": 130
+      },
+      {
+        "name": "Bergen Busstasjon",
+        "x": 150,
+        "y": 160
+      },
+      {
+        "name": "Nygård",
+        "x": 140,
+        "y": 200
+      },
+      {
+        "name": "Florida",
+        "x": 150,
+        "y": 230
+      },
+      {
+        "name": "Danmarks Plass",
+        "x": 160,
+        "y": 260
+      },
+      {
+        "name": "Kronstad",
+        "x": 170,
+        "y": 290
+      },
+      {
+        "name": "Brann Stadion",
+        "x": 180,
+        "y": 320
+      },
+      {
+        "name": "Wergeland",
+        "x": 190,
+        "y": 350
+      },
+      {
+        "name": "Sletten",
+        "x": 200,
+        "y": 380
+      },
+      {
+        "name": "Slettebakken",
+        "x": 210,
+        "y": 410
+      },
+      {
+        "name": "Fantoft",
+        "x": 220,
+        "y": 440
+      },
+      {
+        "name": "Paradis",
+        "x": 230,
+        "y": 470
+      },
+      {
+        "name": "Hop",
+        "x": 240,
+        "y": 500
+      },
+      {
+        "name": "Nesttun Terminal",
+        "x": 250,
+        "y": 530
+      },
+      {
+        "name": "Nesttun Sentrum",
+        "x": 260,
+        "y": 560
+      },
+      {
+        "name": "Skjoldskiftet",
+        "x": 270,
+        "y": 590
+      },
+      {
+        "name": "Mårdalen",
+        "x": 280,
+        "y": 620
+      },
+      {
+        "name": "Skjold",
+        "x": 290,
+        "y": 650
+      },
+      {
+        "name": "Lagunen Terminal",
+        "x": 300,
+        "y": 680
+      },
+      {
+        "name": "Råstølen",
+        "x": 310,
+        "y": 710
+      },
+      {
+        "name": "Sandslivegen",
+        "x": 320,
+        "y": 740
+      },
+      {
+        "name": "Sandslimarka",
+        "x": 330,
+        "y": 770
+      },
+      {
+        "name": "Kokstad",
+        "x": 340,
+        "y": 800
+      },
+      {
+        "name": "Birkelandsskiftet Terminal",
+        "x": 350,
+        "y": 830
+      },
+      {
+        "name": "Kokstadflaten",
+        "x": 360,
+        "y": 860
+      },
+      {
+        "name": "Bergen Lufthavn",
+        "x": 370,
+        "y": 890
+      }
     ],
     "line2": [
-        {"name": "Kaigaten", "x": 100, "y": 100},
-        {"name": "Nonneseter", "x": 150, "y": 100},
-        {"name": "Bergen Busstasjon", "x": 200, "y": 100},
-        {"name": "Fløen", "x": 250, "y": 100},
-        {"name": "Haukeland sjukehus", "x": 300, "y": 100},
-        {"name": "Kronstad", "x": 400, "y": 100},
-        {"name": "Mindemyren", "x": 450, "y": 100},
-        {"name": "Kristianborg", "x": 500, "y": 100},
-        {"name": "Fyllingsdalen Terminal", "x": 550, "y": 100}
+      {
+        "name": "Kaigaten",
+        "x": 110,
+        "y": 100
+      },
+      {
+        "name": "Nonneseter",
+        "x": 130,
+        "y": 130
+      },
+      {
+        "name": "Bergen Busstasjon",
+        "x": 150,
+        "y": 160
+      },
+      {
+        "name": "Fløen",
+        "x": 230,
+        "y": 190
+      },
+      {
+        "name": "Haukeland sjukehus",
+        "x": 260,
+        "y": 210
+      },
+      {
+        "name": "Kronstad",
+        "x": 170,
+        "y": 290
+      },
+      {
+        "name": "Mindemyren",
+        "x": 150,
+        "y": 330
+      },
+      {
+        "name": "Kristianborg",
+        "x": 110,
+        "y": 370
+      },
+      {
+        "name": "Fyllingsdalen Terminal",
+        "x": 10,
+        "y": 410
+      }
     ]
-}
+  }
