@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#map {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.stop {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: yellow;
+    border-radius: 50%;
+}
+
+.stop-name {
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    transform: translate(15px, -5px);
+}
+
+.blinking {
+    animation: blinking 1s infinite;
+}
+
+@keyframes blinking {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
