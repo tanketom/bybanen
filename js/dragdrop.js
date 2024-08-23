@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (li.parentElement.classList.contains('grid-cell')) {
                 stops.line1.push({
                     name: li.textContent,
-                    x: parseInt(li.style.left, 10),
-                    y: parseInt(li.style.top, 10)
+                    x: parseInt(li.parentElement.style.left, 10),
+                    y: parseInt(li.parentElement.style.top, 10)
                 });
             }
         });
@@ -71,12 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (li.parentElement.classList.contains('grid-cell')) {
                 stops.line2.push({
                     name: li.textContent,
-                    x: parseInt(li.style.left, 10),
-                    y: parseInt(li.style.top, 10)
+                    x: parseInt(li.parentElement.style.left, 10),
+                    y: parseInt(li.parentElement.style.top, 10)
                 });
             }
         });
-        navigator.clipboard.writeText(JSON.stringify(stops)).then(() => {
+        navigator.clipboard.writeText(JSON.stringify(stops, null, 4)).then(() => {
             alert('Coordinates copied to clipboard!');
         });
     });
