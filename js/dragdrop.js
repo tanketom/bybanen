@@ -8,9 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < 10000; i++) {
         const cell = document.createElement('div');
         cell.classList.add('grid-cell');
-        cell.addEventListener('dragover', (e) => e.preventDefault());
+        cell.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            cell.classList.add('highlight');
+        });
+        cell.addEventListener('dragleave', () => {
+            cell.classList.remove('highlight');
+        });
         cell.addEventListener('drop', (e) => {
             e.preventDefault();
+            cell.classList.remove('highlight');
             const id = e.dataTransfer.getData('text');
             const stop = document.getElementById(id);
             cell.appendChild(stop);
