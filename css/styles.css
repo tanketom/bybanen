@@ -35,3 +35,24 @@ body {
     50% { opacity: 0; }
     100% { opacity: 1; }
 }
+
+.connector {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.line {
+    position: absolute;
+    background-color: white;
+    width: 2px;
+}
+
+.blinking-segment {
+    position: absolute;
+    background-color: yellow;
+    width: 2px;
+    animation: blinking 1s infinite;
+}
