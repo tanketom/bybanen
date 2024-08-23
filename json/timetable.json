@@ -1,5 +1,5 @@
 {
-    "stops": [
+    "line1": [
         {"name": "Byparken", "x": 10, "y": 10},
         {"name": "Kaigaten", "x": 20, "y": 20},
         {"name": "Nonneseter", "x": 30, "y": 30},
@@ -27,9 +27,17 @@
         {"name": "Kokstad", "x": 250, "y": 250},
         {"name": "Birkelandsskiftet Terminal", "x": 260, "y": 260},
         {"name": "Kokstadflaten", "x": 270, "y": 270},
-        {"name": "Bergen Lufthavn", "x": 280, "y": 280},
-        {"name": "Kaigaten", "x": 290, "y": 290},
-        {"name": "Kronstad", "x": 300, "y": 300},
-        {"name": "Fyllingsdalen", "x": 310, "y": 310}
+        {"name": "Bergen Lufthavn", "x": 280, "y": 280}
+    ],
+    "line2": [
+        {"name": "Kaigaten", "x": 10, "y": 10},
+        {"name": "Nonneseter", "x": 20, "y": 20},
+        {"name": "Bergen Busstasjon", "x": 30, "y": 30},
+        {"name": "Fløen", "x": 40, "y": 40},
+        {"name": "Haukeland sjukehus", "x": 80, "y": 80},
+        {"name": "Kronstad", "x": 90, "y": 90},
+        {"name": "Mindemyren", "x": 100, "y": 100},
+        {"name": "Kristianborg", "x": 110, "y": 110},
+        {"name": "Fyllingsdalen Terminal", "x": 120, "y": 120}
     ]
 }

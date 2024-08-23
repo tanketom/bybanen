@@ -1,39 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('json/timetable.json')
-        .then(response => response.json())
-        .then(data => {
-            const map = document.getElementById('map');
-            data.stops.forEach(stop => {
-                const stopElement = document.createElement('div');
-                stopElement.classList.add('stop');
-                stopElement.style.left = `${stop.x}%`;
-                stopElement.style.top = `${stop.y}%`;
-                map.appendChild(stopElement);
+    const map = document.getElementById('map');
 
-                const stopName = document.createElement('div');
-                stopName.classList.add('stop-name');
-                stopName.style.left = `${stop.x}%`;
-                stopName.style.top = `${stop.y}%`;
-                stopName.textContent = stop.name;
-                map.appendChild(stopName);
+    function loadStops(line, color) {
+        fetch('json/timetable.json')
+            .then(response => response.json())
+            .then(data => {
+                data[line].forEach((stop, index) => {
+                    const stopElement = document.createElement('div');
+                    stopElement.classList.add('stop');
+                    stopElement.style.left = `${stop.x}%`;
+                    stopElement.style.top = `${stop.y}%`;
+                    stopElement.style.backgroundColor = color;
+                    map.appendChild(stopElement);
+
+                    const stopName = document.createElement('div');
+                    stopName.classList.add('stop-name');
+                    stopName.style.left = `${stop.x}%`;
+                    stopName.style.top = `${stop.y}%`;
+                    stopName.textContent = stop.name;
+                    map.appendChild(stopName);
+
+                    if (index > 0) {
+                        const prevStop = data[line][index - 1];
+                        const connector = document.createElement('div');
+                        connector.classList.add('connector');
+                        connector.style.left = `${(stop.x + prevStop.x) / 2}%`;
+                        connector.style.top = `${(stop.y + prevStop.y) / 2}%`;
+                        map.appendChild(connector);
+                    }
+                });
+
+                // Simulate tram movement
+                let currentIndex = 0;
+                setInterval(() => {
+                    const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
+                    stops.forEach(stop => stop.classList.remove('blinking'));
+                    stops[currentIndex].classList.add('blinking');
+                    currentIndex = (currentIndex + 1) % stops.length;
+                }, 1000);
             });
+    }
 
-            // Simulate tram movement for Line 1
-            let currentIndex1 = 0;
-            setInterval(() => {
-                const stops = document.querySelectorAll('.stop');
-                stops.forEach(stop => stop.classList.remove('blinking'));
-                stops[currentIndex1].classList.add('blinking');
-                currentIndex1 = (currentIndex1 + 1) % stops.length;
-            }, 1000);
-
-            // Simulate tram movement for Line 2
-            let currentIndex2 = data.stops.length / 2; // Assuming Line 2 starts halfway through the stops array
-            setInterval(() => {
-                const stops = document.querySelectorAll('.stop');
-                stops.forEach(stop => stop.classList.remove('blinking'));
-                stops[currentIndex2].classList.add('blinking');
-                currentIndex2 = (currentIndex2 + 1) % stops.length;
-            }, 1000);
-        });
+    loadStops('line1', 'yellow');
+    loadStops('line2', 'orange');
 });
