@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputButton = document.getElementById('input');
 
     // Create the grid
-    for (let i = 0; i < 100; i++) {
-        for (let j = 0; j < 100; j++) {
+    for (let i = 0; i < 1000; i++) {
+        for (let j = 0; j < 1000; j++) {
             const cell = document.createElement('div');
             cell.dataset.x = j;
             cell.dataset.y = i;
@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load stops from timetable.json
     function loadStops(data) {
         stopsList.innerHTML = ''; // Clear existing stops
+        grid.querySelectorAll('.highlight').forEach(cell => {
+            cell.classList.remove('highlight');
+            cell.style.backgroundColor = '#333';
+            cell.innerHTML = '';
+        });
+
         Object.keys(data).forEach(line => {
             data[line].forEach(stop => {
                 const stopItem = document.createElement('li');
