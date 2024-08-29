@@ -25,9 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadStops(line, color, schedule) {
         fetch('json/timetable.json')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 const stops = data[line].stops;
+                console.log(`Loading stops for ${line}:`, stops); // Debug log
+
                 stops.forEach((stop, index) => {
                     const stopElement = document.createElement('div');
                     stopElement.classList.add('stop');
@@ -87,7 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function scheduleLines() {
         fetch('json/timetable.json')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 const currentHours = Math.floor(globalTime / 60) % 24;
                 const currentMinutes = globalTime % 60;
