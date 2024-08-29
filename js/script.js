@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Function to update the clock
-    let simulatedTime = 0;
+    let simulatedTime = 5 * 3600 + 40 * 60; // Start at 05:40
     function updateClock() {
-        simulatedTime += 10; // Increment by 10 seconds
+        simulatedTime += 6; // Increment by 6 seconds to simulate 10x speed without skipping minutes
         const hours = Math.floor(simulatedTime / 3600) % 24;
         const minutes = Math.floor((simulatedTime % 3600) / 60);
         const seconds = simulatedTime % 60;
