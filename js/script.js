@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const currentTime = currentHours * 60 + currentMinutes;
 
                     if (currentTime >= startTime) {
-                        const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
+                        const stops = document.querySelectorAll(`.stop`);
                         stops.forEach(stop => stop.classList.remove('blinking'));
                         stops[currentIndex].classList.add('blinking');
+
+                        console.log(`Blinking stop: ${stops[currentIndex].textContent} on line ${line}`);
 
                         currentIndex += direction;
                         if (currentIndex === stops.length || currentIndex === -1) {
