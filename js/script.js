@@ -63,9 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 let direction = 1;
 
                 setInterval(() => {
-                    const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
+                    const stops = document.querySelectorAll(`.stop`);
                     stops.forEach(stop => stop.classList.remove('blinking'));
                     stops[currentIndex].classList.add('blinking');
+
+                    console.log(`Blinking stop: ${stops[currentIndex].textContent}`);
 
                     currentIndex += direction;
                     if (currentIndex === stops.length || currentIndex === -1) {
