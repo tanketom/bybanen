@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let direction = 1;
                 let currentTime = 0;
                 const speedFactor = 60; // 60 times faster
-                const updateInterval = 1000 / speedFactor; // Update every second divided by speed factor
+                const updateInterval = 10 / speedFactor; // Update every second divided by speed factor
 
                 setInterval(() => {
                     const stops = document.querySelectorAll(`.stop`);
