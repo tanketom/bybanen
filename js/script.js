@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const updateInterval = 1000 / speedFactor; // Update every second divided by speed factor
 
                 setInterval(() => {
-                    const stops = document.querySelectorAll(`.stop`);
+                    const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
                     stops.forEach(stop => stop.classList.remove('blinking'));
                     stops[currentIndex].classList.add('blinking');
 
