@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clock.style.fontSize = '20px';
     map.appendChild(clock);
 
-    let globalTime = 0;
+    let globalTime = 345; // Start at 05:45 (5 * 60 + 45)
     const speedFactor = 10; // 10 times faster
     const updateInterval = 1000 / speedFactor; // Update every second divided by speed factor
 
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(updateClock, updateInterval);
 
-    function loadStops(line, color) {
+    function loadStops(line, color, startTime) {
         fetch('json/timetable.json')
             .then(response => response.json())
             .then(data => {
@@ -63,22 +63,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 let direction = 1;
 
                 setInterval(() => {
-                    const stops = document.querySelectorAll(`.stop`);
-                    stops.forEach(stop => stop.classList.remove('blinking'));
-                    stops[currentIndex].classList.add('blinking');
+                    const currentHours = Math.floor(globalTime / 60) % 24;
+                    const currentMinutes = globalTime % 60;
+                    const currentTime = currentHours * 60 + currentMinutes;
 
-                    console.log(`Blinking stop: ${stops[currentIndex].textContent}`);
+                    if (currentTime >= startTime) {
+                        const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
+                        stops.forEach(stop => stop.classList.remove('blinking'));
+                        stops[currentIndex].classList.add('blinking');
 
-                    currentIndex += direction;
-                    if (currentIndex === stops.length || currentIndex === -1) {
-                        direction *= -1;
                         currentIndex += direction;
+                        if (currentIndex === stops.length || currentIndex === -1) {
+                            direction *= -1;
+                            currentIndex += direction;
+                        }
                     }
                 }, updateInterval);
             })
             .catch(error => console.error('Error loading stops:', error));
     }
 
-    loadStops('line1', 'yellow');
-    loadStops('line2', 'orange');
+    loadStops('line1', 'yellow', 345); // Start at 05:45 (5 * 60 + 45)
+    loadStops('line2', 'orange', 346); // Start at 05:46 (5 * 60 + 46)
 });
