@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const stopName = document.createElement("div");
         stopName.className = "stop-name";
         stopName.textContent = stop.name;
+        stopName.style.left = `${stop.x + 15}px`;
+        stopName.style.top = `${stop.y - 5}px`;
 
         map.appendChild(stopElement);
         map.appendChild(stopName);
@@ -20,25 +22,26 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Function to create SVG lines between stops
-    function createLine(stops) {
+    function createLine(stops, color) {
         for (let i = 0; i < stops.length - 1; i++) {
             const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            line.setAttribute("x1", stops[i].x);
-            line.setAttribute("y1", stops[i].y);
-            line.setAttribute("x2", stops[i + 1].x);
-            line.setAttribute("y2", stops[i + 1].y);
-            line.setAttribute("stroke", "white");
+            line.setAttribute("x1", stops[i].x + 5); // Centering on the stop dot
+            line.setAttribute("y1", stops[i].y + 5); // Centering on the stop dot
+            line.setAttribute("x2", stops[i + 1].x + 5); // Centering on the stop dot
+            line.setAttribute("y2", stops[i + 1].y + 5); // Centering on the stop dot
+            line.setAttribute("stroke", color);
             line.setAttribute("stroke-width", "3");
             linesSvg.appendChild(line);
         }
     }
 
     // Function to update the clock
+    let simulatedTime = 0;
     function updateClock() {
-        const now = new Date();
-        const hours = now.getUTCHours();
-        const minutes = now.getUTCMinutes();
-        const seconds = now.getUTCSeconds();
+        simulatedTime += 10; // Increment by 10 seconds
+        const hours = Math.floor(simulatedTime / 3600) % 24;
+        const minutes = Math.floor((simulatedTime % 3600) / 60);
+        const seconds = simulatedTime % 60;
         const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         clockElement.textContent = timeString;
     }
@@ -64,17 +67,16 @@ document.addEventListener("DOMContentLoaded", function() {
             // Create stops and lines for each line
             for (const line in lines) {
                 const stops = lines[line].stops.map(createStop);
-                createLine(lines[line].stops);
+                const color = line === "line1" ? "orange" : "yellow";
+                createLine(lines[line].stops, color);
 
                 // Blink stops according to schedule
                 const schedule = lines[line].schedule;
-                const intervals = schedule.intervals;
                 const start = schedule.start;
                 const end = schedule.end;
 
                 function blinkStops() {
-                    const now = new Date();
-                    const currentTime = (now.getUTCHours() * 60 + now.getUTCMinutes()) % 1440;
+                    const currentTime = (simulatedTime / 60) % 1440;
                     const activeStops = stops.filter((stop, index) => {
                         const travelTime = lines[line].stops[index].travelTime;
                         return currentTime >= start + travelTime && currentTime <= end + travelTime;
