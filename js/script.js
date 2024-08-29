@@ -72,18 +72,31 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Blink stops according to schedule
                 const schedule = lines[line].schedule;
-                const start = schedule.start;
-                const end = schedule.end;
+                const intervals = schedule.intervals;
 
                 function blinkStops() {
                     const currentTime = (simulatedTime / 60) % 1440;
-                    const activeStops = stops.filter((stop, index) => {
-                        const travelTime = lines[line].stops[index].travelTime;
-                        return currentTime >= start + travelTime && currentTime <= end + travelTime;
-                    });
 
-                    stops.forEach(stop => stop.classList.remove("blinking"));
-                    activeStops.forEach(stop => stop.classList.add("blinking"));
+                    // Determine if the current time is within any interval
+                    let isActive = false;
+                    for (const interval of intervals) {
+                        if (currentTime >= interval.start && currentTime <= interval.end) {
+                            isActive = true;
+                            break;
+                        }
+                    }
+
+                    if (isActive) {
+                        const activeStops = stops.filter((stop, index) => {
+                            const travelTime = lines[line].stops[index].travelTime;
+                            return currentTime >= schedule.start + travelTime && currentTime <= schedule.end + travelTime;
+                        });
+
+                        stops.forEach(stop => stop.classList.remove("blinking"));
+                        activeStops.forEach(stop => stop.classList.add("blinking"));
+                    } else {
+                        stops.forEach(stop => stop.classList.remove("blinking"));
+                    }
                 }
 
                 setInterval(blinkStops, 1000);
