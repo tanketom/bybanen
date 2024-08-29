@@ -117,5 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error loading schedule:', error));
     }
 
-    setInterval(scheduleLines, updateInterval);
+    // Fetch the timetable once and schedule the lines
+    fetch('json/timetable.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const currentHours = Math.floor(globalTime / 60) % 24;
+            const currentMinutes = globalTime % 60;
+            const currentTime = currentHours * 60 + currentMinutes;
+
+            Object.keys(data).forEach(line => {
+                const schedule = data[line].schedule;
+                schedule.intervals.forEach(interval => {
+                    if (currentTime >= interval.start && currentTime <= interval.end) {
+                        loadStops(line, line === 'line1' ? 'yellow' : 'orange', schedule);
+                    }
+                });
+            });
+        })
+        .catch(error => console.error('Error loading timetable:', error));
 });
