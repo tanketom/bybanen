@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(updateClock, updateInterval);
 
-    function loadStops(line, color, startTime, interval, endTime) {
+    function loadStops(line, color, schedule) {
         fetch('json/timetable.json')
             .then(response => response.json())
             .then(data => {
-                const stops = data[line];
+                const stops = data[line].stops;
                 stops.forEach((stop, index) => {
                     const stopElement = document.createElement('div');
                     stopElement.classList.add('stop');
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const currentMinutes = globalTime % 60;
                     const currentTime = currentHours * 60 + currentMinutes;
 
-                    if (currentTime >= startTime && currentTime <= endTime) {
+                    if (currentTime >= schedule.start && currentTime <= schedule.end) {
                         const stops = document.querySelectorAll(`.stop`);
                         stops.forEach(stop => stop.classList.remove('blinking'));
                         stops[currentIndex].classList.add('blinking');
@@ -86,21 +86,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function scheduleLines() {
-        const currentHours = Math.floor(globalTime / 60) % 24;
-        const currentMinutes = globalTime % 60;
-        const currentTime = currentHours * 60 + currentMinutes;
+        fetch('json/timetable.json')
+            .then(response => response.json())
+            .then(data => {
+                const currentHours = Math.floor(globalTime / 60) % 24;
+                const currentMinutes = globalTime % 60;
+                const currentTime = currentHours * 60 + currentMinutes;
 
-        // Line 1 schedule
-        if ((currentTime >= 345 && currentTime <= 75) || (currentTime >= 75 && currentTime <= 240)) {
-            const interval = (currentTime >= 345 && currentTime <= 75) ? 10 : 15;
-            loadStops('line1', 'yellow', currentTime, interval, 240);
-        }
-
-        // Line 2 schedule
-        if ((currentTime >= 346 && currentTime <= 280) || (currentTime >= 280 && currentTime <= 205)) {
-            const interval = (currentTime >= 346 && currentTime <= 280) ? 10 : 15;
-            loadStops('line2', 'orange', currentTime, interval, 205);
-        }
+                Object.keys(data).forEach(line => {
+                    const schedule = data[line].schedule;
+                    schedule.intervals.forEach(interval => {
+                        if (currentTime >= interval.start && currentTime <= interval.end) {
+                            loadStops(line, line === 'line1' ? 'yellow' : 'orange', schedule);
+                        }
+                    });
+                });
+            })
+            .catch(error => console.error('Error loading schedule:', error));
     }
 
     setInterval(scheduleLines, updateInterval);

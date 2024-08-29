@@ -1,43 +1,63 @@
 {
-    "line1": [
-      {"name": "Byparken", "x": 202.5, "y": 73.5, "travelTime": 0},
-      {"name": "Kaigaten", "x": 247.5, "y": 105.0, "travelTime": 2},
-      {"name": "Nonneseter", "x": 292.5, "y": 136.5, "travelTime": 1},
-      {"name": "Bergen Busstasjon", "x": 337.5, "y": 168.0, "travelTime": 2},
-      {"name": "Nygård", "x": 315.0, "y": 210.0, "travelTime": 2},
-      {"name": "Florida", "x": 337.5, "y": 241.5, "travelTime": 2},
-      {"name": "Danmarks Plass", "x": 360.0, "y": 273.0, "travelTime": 2},
-      {"name": "Kronstad", "x": 382.5, "y": 304.5, "travelTime": 2},
-      {"name": "Brann Stadion", "x": 405.0, "y": 336.0, "travelTime": 2},
-      {"name": "Wergeland", "x": 427.5, "y": 367.5, "travelTime": 2},
-      {"name": "Sletten", "x": 450.0, "y": 399.0, "travelTime": 2},
-      {"name": "Slettebakken", "x": 472.5, "y": 430.5, "travelTime": 2},
-      {"name": "Fantoft", "x": 495.0, "y": 462.0, "travelTime": 2},
-      {"name": "Paradis", "x": 517.5, "y": 493.5, "travelTime": 2},
-      {"name": "Hop", "x": 540.0, "y": 525.0, "travelTime": 2},
-      {"name": "Nesttun Terminal", "x": 562.5, "y": 556.5, "travelTime": 2},
-      {"name": "Nesttun Sentrum", "x": 585.0, "y": 588.0, "travelTime": 2},
-      {"name": "Skjoldskiftet", "x": 607.5, "y": 619.5, "travelTime": 2},
-      {"name": "Mårdalen", "x": 630.0, "y": 651.0, "travelTime": 2},
-      {"name": "Skjold", "x": 652.5, "y": 682.5, "travelTime": 2},
-      {"name": "Lagunen Terminal", "x": 675.0, "y": 714.0, "travelTime": 2},
-      {"name": "Råstølen", "x": 697.5, "y": 745.5, "travelTime": 2},
-      {"name": "Sandslivegen", "x": 720.0, "y": 777.0, "travelTime": 2},
-      {"name": "Sandslimarka", "x": 742.5, "y": 808.5, "travelTime": 2},
-      {"name": "Kokstad", "x": 765.0, "y": 840.0, "travelTime": 2},
-      {"name": "Birkelandsskiftet Terminal", "x": 787.5, "y": 871.5, "travelTime": 2},
-      {"name": "Kokstadflaten", "x": 810.0, "y": 903.0, "travelTime": 2},
-      {"name": "Bergen Lufthavn", "x": 832.5, "y": 934.5, "travelTime": 2}
-    ],
-    "line2": [
-      {"name": "Kaigaten", "x": 247.5, "y": 105.0, "travelTime": 0},
-      {"name": "Nonneseter", "x": 292.5, "y": 136.5, "travelTime": 2},
-      {"name": "Bergen Busstasjon", "x": 337.5, "y": 168.0, "travelTime": 3},
-      {"name": "Fløen", "x": 517.5, "y": 199.5, "travelTime": 3},
-      {"name": "Haukeland sjukehus", "x": 585.0, "y": 220.5, "travelTime": 3},
-      {"name": "Kronstad", "x": 382.5, "y": 304.5, "travelTime": 3},
-      {"name": "Mindemyren", "x": 337.5, "y": 346.5, "travelTime": 3},
-      {"name": "Kristianborg", "x": 247.5, "y": 388.5, "travelTime": 3},
-      {"name": "Fyllingsdalen Terminal", "x": 22.5, "y": 430.5, "travelTime": 3}
-    ]
-  }  
+  "line1": {
+      "stops": [
+          {"name": "Byparken", "x": 202.5, "y": 73.5, "travelTime": 0},
+          {"name": "Kaigaten", "x": 247.5, "y": 105.0, "travelTime": 2},
+          {"name": "Nonneseter", "x": 292.5, "y": 136.5, "travelTime": 1},
+          {"name": "Bergen Busstasjon", "x": 337.5, "y": 168.0, "travelTime": 2},
+          {"name": "Nygård", "x": 315.0, "y": 210.0, "travelTime": 2},
+          {"name": "Florida", "x": 337.5, "y": 241.5, "travelTime": 2},
+          {"name": "Danmarks Plass", "x": 360.0, "y": 273.0, "travelTime": 2},
+          {"name": "Kronstad", "x": 382.5, "y": 304.5, "travelTime": 2},
+          {"name": "Brann Stadion", "x": 405.0, "y": 336.0, "travelTime": 2},
+          {"name": "Wergeland", "x": 427.5, "y": 367.5, "travelTime": 2},
+          {"name": "Sletten", "x": 450.0, "y": 399.0, "travelTime": 2},
+          {"name": "Slettebakken", "x": 472.5, "y": 430.5, "travelTime": 2},
+          {"name": "Fantoft", "x": 495.0, "y": 462.0, "travelTime": 2},
+          {"name": "Paradis", "x": 517.5, "y": 493.5, "travelTime": 2},
+          {"name": "Hop", "x": 540.0, "y": 525.0, "travelTime": 2},
+          {"name": "Nesttun Terminal", "x": 562.5, "y": 556.5, "travelTime": 2},
+          {"name": "Nesttun Sentrum", "x": 585.0, "y": 588.0, "travelTime": 2},
+          {"name": "Skjoldskiftet", "x": 607.5, "y": 619.5, "travelTime": 2},
+          {"name": "Mårdalen", "x": 630.0, "y": 651.0, "travelTime": 2},
+          {"name": "Skjold", "x": 652.5, "y": 682.5, "travelTime": 2},
+          {"name": "Lagunen Terminal", "x": 675.0, "y": 714.0, "travelTime": 2},
+          {"name": "Råstølen", "x": 697.5, "y": 745.5, "travelTime": 2},
+          {"name": "Sandslivegen", "x": 720.0, "y": 777.0, "travelTime": 2},
+          {"name": "Sandslimarka", "x": 742.5, "y": 808.5, "travelTime": 2},
+          {"name": "Kokstad", "x": 765.0, "y": 840.0, "travelTime": 2},
+          {"name": "Birkelandsskiftet Terminal", "x": 787.5, "y": 871.5, "travelTime": 2},
+          {"name": "Kokstadflaten", "x": 810.0, "y": 903.0, "travelTime": 2},
+          {"name": "Bergen Lufthavn", "x": 832.5, "y": 934.5, "travelTime": 2}
+      ],
+      "schedule": {
+          "start": 345,
+          "end": 240,
+          "intervals": [
+              {"start": 345, "end": 75, "interval": 10},
+              {"start": 75, "end": 240, "interval": 15}
+          ]
+      }
+  },
+  "line2": {
+      "stops": [
+          {"name": "Kaigaten", "x": 247.5, "y": 105.0, "travelTime": 0},
+          {"name": "Nonneseter", "x": 292.5, "y": 136.5, "travelTime": 2},
+          {"name": "Bergen Busstasjon", "x": 337.5, "y": 168.0, "travelTime": 3},
+          {"name": "Fløen", "x": 517.5, "y": 199.5, "travelTime": 3},
+          {"name": "Haukeland sjukehus", "x": 585.0, "y": 220.5, "travelTime": 3},
+          {"name": "Kronstad", "x": 382.5, "y": 304.5, "travelTime": 3},
+          {"name": "Mindemyren", "x": 337.5, "y": 346.5, "travelTime": 3},
+          {"name": "Kristianborg", "x": 247.5, "y": 388.5, "travelTime": 3},
+          {"name": "Fyllingsdalen Terminal", "x": 22.5, "y": 430.5, "travelTime": 3}
+      ],
+      "schedule": {
+          "start": 346,
+          "end": 205,
+          "intervals": [
+              {"start": 346, "end": 280, "interval": 10},
+              {"start": 280, "end": 205, "interval": 15}
+          ]
+      }
+  }
+}
