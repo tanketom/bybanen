@@ -10,6 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
     clock.style.fontSize = '20px';
     map.appendChild(clock);
 
+    let globalTime = 0;
+    const speedFactor = 10; // 10 times faster
+    const updateInterval = 1000 / speedFactor; // Update every second divided by speed factor
+
+    function updateClock() {
+        globalTime += 1;
+        const hours = Math.floor(globalTime / 60) % 24;
+        const minutes = globalTime % 60;
+        clock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+    }
+
+    setInterval(updateClock, updateInterval);
+
     function loadStops(line, color) {
         fetch('json/timetable.json')
             .then(response => response.json())
@@ -48,19 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let currentIndex = 0;
                 let direction = 1;
-                let currentTime = 0;
-                const speedFactor = 10; // 10 times faster
-                const updateInterval = 1000 / speedFactor; // Update every second divided by speed factor
 
                 setInterval(() => {
                     const stops = document.querySelectorAll(`.stop[style*="background-color: ${color}"]`);
                     stops.forEach(stop => stop.classList.remove('blinking'));
                     stops[currentIndex].classList.add('blinking');
-
-                    currentTime += parseInt(stops[currentIndex].dataset.travelTime) * speedFactor;
-                    const hours = Math.floor(currentTime / 60) % 24;
-                    const minutes = currentTime % 60;
-                    clock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 
                     currentIndex += direction;
                     if (currentIndex === stops.length || currentIndex === -1) {
