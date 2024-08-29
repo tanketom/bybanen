@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(updateClock, 100);
 
     // Load timetable data
-    fetch('timetable.json')
+    fetch('json/timetable.json')
         .then(response => response.json())
         .then(data => {
             const lines = data;
