@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     stopElement.style.top = `${stop.y}px`;
                     stopElement.style.backgroundColor = 'white';
                     stopElement.style.borderColor = 'black';
-                    stopElement.style.setProperty('--stop-color', color);
+                    stopElement.dataset.travelTime = stop.travelTime; // Bind travelTime data
                     map.appendChild(stopElement);
 
                     const stopName = document.createElement('div');
@@ -34,10 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (index > 0) {
                         const prevStop = stops[index - 1];
-                        const midX = (prevStop.x + stop.x) / 2;
-                        const midY = (prevStop.y + stop.y) / 2;
                         const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        const d = `M${prevStop.x + 5},${prevStop.y + 5} Q${midX},${midY} ${stop.x + 5},${stop.y + 5}`;
+                        const d = `M${prevStop.x + 5},${prevStop.y + 5} C${(prevStop.x + stop.x) / 2},${prevStop.y} ${(prevStop.x + stop.x) / 2},${stop.y} ${stop.x + 5},${stop.y + 5}`;
                         pathElement.setAttribute('d', d);
                         pathElement.setAttribute('stroke', color);
                         pathElement.setAttribute('stroke-width', '3');
@@ -57,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     stops.forEach(stop => stop.classList.remove('blinking'));
                     stops[currentIndex].classList.add('blinking');
 
-                    currentTime += stops[currentIndex].dataset.travelTime * speedFactor;
+                    currentTime += parseInt(stops[currentIndex].dataset.travelTime) * speedFactor;
                     const hours = Math.floor(currentTime / 60) % 24;
                     const minutes = currentTime % 60;
                     clock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
@@ -68,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentIndex += direction;
                     }
                 }, updateInterval);
-            });
+            })
+            .catch(error => console.error('Error loading stops:', error));
     }
 
     loadStops('line1', 'yellow');
