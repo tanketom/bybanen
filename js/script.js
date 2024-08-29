@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(updateClock, updateInterval);
 
-    function loadStops(line, color, startTime) {
+    function loadStops(line, color, startTime, interval, endTime) {
         fetch('json/timetable.json')
             .then(response => response.json())
             .then(data => {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const currentMinutes = globalTime % 60;
                     const currentTime = currentHours * 60 + currentMinutes;
 
-                    if (currentTime >= startTime) {
+                    if (currentTime >= startTime && currentTime <= endTime) {
                         const stops = document.querySelectorAll(`.stop`);
                         stops.forEach(stop => stop.classList.remove('blinking'));
                         stops[currentIndex].classList.add('blinking');
@@ -85,6 +85,23 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error loading stops:', error));
     }
 
-    loadStops('line1', 'yellow', 345); // Start at 05:45 (5 * 60 + 45)
-    loadStops('line2', 'orange', 346); // Start at 05:46 (5 * 60 + 46)
+    function scheduleLines() {
+        const currentHours = Math.floor(globalTime / 60) % 24;
+        const currentMinutes = globalTime % 60;
+        const currentTime = currentHours * 60 + currentMinutes;
+
+        // Line 1 schedule
+        if ((currentTime >= 345 && currentTime <= 75) || (currentTime >= 75 && currentTime <= 240)) {
+            const interval = (currentTime >= 345 && currentTime <= 75) ? 10 : 15;
+            loadStops('line1', 'yellow', currentTime, interval, 240);
+        }
+
+        // Line 2 schedule
+        if ((currentTime >= 346 && currentTime <= 280) || (currentTime >= 280 && currentTime <= 205)) {
+            const interval = (currentTime >= 346 && currentTime <= 280) ? 10 : 15;
+            loadStops('line2', 'orange', currentTime, interval, 205);
+        }
+    }
+
+    setInterval(scheduleLines, updateInterval);
 });
