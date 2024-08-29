@@ -23,18 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(updateClock, updateInterval);
 
-    function loadStops(line, color, schedule) {
+    function loadStops(line, color, startTime) {
         fetch('json/timetable.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                const stops = data[line].stops;
-                console.log(`Loading stops for ${line}:`, stops); // Debug log
-
+                const stops = data[line];
                 stops.forEach((stop, index) => {
                     const stopElement = document.createElement('div');
                     stopElement.classList.add('stop');
@@ -74,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const currentMinutes = globalTime % 60;
                     const currentTime = currentHours * 60 + currentMinutes;
 
-                    if (currentTime >= schedule.start && currentTime <= schedule.end) {
+                    if (currentTime >= startTime) {
                         const stops = document.querySelectorAll(`.stop`);
                         stops.forEach(stop => stop.classList.remove('blinking'));
                         stops[currentIndex].classList.add('blinking');
@@ -92,52 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error loading stops:', error));
     }
 
-    function scheduleLines() {
-        fetch('json/timetable.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const currentHours = Math.floor(globalTime / 60) % 24;
-                const currentMinutes = globalTime % 60;
-                const currentTime = currentHours * 60 + currentMinutes;
-
-                Object.keys(data).forEach(line => {
-                    const schedule = data[line].schedule;
-                    schedule.intervals.forEach(interval => {
-                        if (currentTime >= interval.start && currentTime <= interval.end) {
-                            loadStops(line, line === 'line1' ? 'yellow' : 'orange', schedule);
-                        }
-                    });
-                });
-            })
-            .catch(error => console.error('Error loading schedule:', error));
-    }
-
-    // Fetch the timetable once and schedule the lines
-    fetch('json/timetable.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const currentHours = Math.floor(globalTime / 60) % 24;
-            const currentMinutes = globalTime % 60;
-            const currentTime = currentHours * 60 + currentMinutes;
-
-            Object.keys(data).forEach(line => {
-                const schedule = data[line].schedule;
-                schedule.intervals.forEach(interval => {
-                    if (currentTime >= interval.start && currentTime <= interval.end) {
-                        loadStops(line, line === 'line1' ? 'yellow' : 'orange', schedule);
-                    }
-                });
-            });
-        })
-        .catch(error => console.error('Error loading timetable:', error));
+    loadStops('line1', 'yellow', 345); // Start at 05:45 (5 * 60 + 45)
+    loadStops('line2', 'orange', 346); // Start at 05:46 (5 * 60 + 46)
 });
