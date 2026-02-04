@@ -1,8 +1,20 @@
-body {
+* {
     margin: 0;
-    background-color: black;
-    color: white;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0ede5;
+    color: #222;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+body.dark {
+    background-color: #1a1a2e;
+    color: #ddd;
 }
 
 #map {
@@ -11,81 +23,539 @@ body {
     height: 100vh;
 }
 
+/* ── Clock ─────────────────────────────────────────────────── */
+
+#clock {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-variant-numeric: tabular-nums;
+    z-index: 10;
+    transition: color 0.4s;
+}
+
+body.dark #clock {
+    color: #aaa;
+}
+
+/* ── Status indicator ──────────────────────────────────────── */
+
+#status {
+    position: absolute;
+    top: 18px;
+    right: 120px;
+    font-size: 12px;
+    color: #888;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.4s;
+}
+
+#status .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #888;
+    transition: background-color 0.3s;
+}
+
+#status .status-dot.ok {
+    background: #3a3;
+}
+
+#status .status-dot.error {
+    background: #d33;
+    animation: error-blink 1s ease-in-out infinite;
+}
+
+#status .status-dot.sleeping {
+    background: #888;
+}
+
+@keyframes error-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+body.dark #status {
+    color: #777;
+}
+
+/* ── Tram counts ───────────────────────────────────────────── */
+
+#tram-counts {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    font-size: 12px;
+    color: #666;
+    z-index: 10;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.4s;
+}
+
+#tram-counts .tram-count-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+#tram-counts .count-swatch {
+    width: 14px;
+    height: 4px;
+    border-radius: 2px;
+}
+
+body.dark #tram-counts {
+    color: #999;
+}
+
+/* ── Legend ─────────────────────────────────────────────────── */
+
+#legend {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    z-index: 10;
+    transition: color 0.4s;
+}
+
+.legend-row {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.4s;
+}
+
+body.dark .legend-row {
+    color: #999;
+}
+
+.legend-swatch {
+    display: inline-block;
+    width: 24px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* ── Theme toggle ──────────────────────────────────────────── */
+
+#theme-toggle {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    background: white;
+    color: #555;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.4s, border-color 0.4s, color 0.4s;
+}
+
+#theme-toggle:hover {
+    background: #eee;
+}
+
+body.dark #theme-toggle {
+    background: #2a2a44;
+    border-color: #555;
+    color: #ddd;
+}
+
+body.dark #theme-toggle:hover {
+    background: #3a3a55;
+}
+
+/* ── SVG route lines ───────────────────────────────────────── */
+
+#lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Station stop — tube-map dot ───────────────────────────── */
+
 .stop {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     background-color: white;
-    border: 2px solid black;
+    border: 3px solid #222;
     border-radius: 50%;
-    transition: box-shadow 0.5s ease-in-out;
+    transform: translate(-7px, -7px);
+    z-index: 5;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
+
+body.dark .stop {
+    background-color: #2a2a44;
+    border-color: #aaa;
+}
+
+/* Interchange: stop served by both lines */
+.stop.interchange {
+    width: 18px;
+    height: 18px;
+    border-width: 3px;
+    transform: translate(-9px, -9px);
+    border-radius: 4px;
+}
+
+/* ── Midpoint dots between stops ───────────────────────────── */
+
+.midpoint {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    transform: translate(-3px, -3px);
+    z-index: 4;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+body.dark .midpoint {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Stop names ────────────────────────────────────────────── */
 
 .stop-name {
     position: absolute;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    transform: translate(15px, -5px);
+    color: #444;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 6;
+    pointer-events: none;
+    transition: color 0.3s;
 }
 
-.blinking {
-    animation: glowing 1s infinite;
-    background-color: red;
+body.dark .stop-name {
+    color: #999;
 }
 
-@keyframes glowing {
-    0% { box-shadow: 0 0 5px 5px rgba(255, 0, 0, 0.5); }
-    50% { box-shadow: 0 0 10px 10px rgba(255, 0, 0, 1); }
-    100% { box-shadow: 0 0 5px 5px rgba(255, 0, 0, 0.5); }
+.stop-name.above {
+    transform: translate(-50%, -22px);
 }
 
-.line {
-    position: absolute;
-    background-color: white;
-    width: 3px;
+.stop-name.below {
+    transform: translate(-50%, 12px);
 }
 
-#grid {
-    display: grid;
-    grid-template-columns: repeat(1000, 1px);
-    grid-template-rows: repeat(1000, 1px);
-    gap: 1px;
-    margin: 20px;
+/* Diagonal labels — placed to the right or left to avoid overlap */
+.stop-name.diag-right {
+    transform: translate(12px, -6px);
+    text-align: left;
 }
 
-#grid div {
-    width: 1px;
-    height: 1px;
-    background-color: #333;
+.stop-name.diag-left {
+    transform: translate(-100%, -6px);
+    text-align: right;
+    margin-left: -12px;
 }
 
-#grid .highlight {
-    background-color: yellow;
+.stop-name.active {
+    color: #cc0000;
 }
 
-#stops {
-    margin: 20px;
+body.dark .stop-name.active {
+    color: #ff4444;
 }
 
-#stops ul {
-    list-style-type: none;
-    padding: 0;
-}
+/* ── Active stop: tram is here ─────────────────────────────── */
 
-#stops li {
-    background-color: yellow;
-    color: black;
-    padding: 5px;
-    margin: 5px 0;
-    cursor: grab;
-}
-
-#copypaste {
-    margin: 20px;
-    padding: 10px 20px;
-    background-color: yellow;
-    color: black;
-    border: none;
+.stop.active {
+    background-color: #dd1111;
+    border-color: #dd1111;
+    animation: stop-pulse 1.4s ease-in-out infinite;
     cursor: pointer;
+}
+
+/* Delayed tram at stop */
+.stop.delayed {
+    background-color: #cc5500;
+    border-color: #cc5500;
+    animation: stop-pulse-delay 1.4s ease-in-out infinite;
+    cursor: pointer;
+}
+
+/* ── Active midpoint: tram is passing through ──────────────── */
+
+.midpoint.active {
+    background-color: #dd1111;
+    animation: mid-pulse 1.4s ease-in-out infinite;
+    cursor: pointer;
+}
+
+.midpoint.delayed {
+    background-color: #cc5500;
+    animation: mid-pulse-delay 1.4s ease-in-out infinite;
+    cursor: pointer;
+}
+
+@keyframes stop-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 0 3px rgba(220, 20, 20, 0.25),
+            0 0 0 7px rgba(220, 20, 20, 0.08);
+    }
+    50% {
+        box-shadow:
+            0 0 0 5px rgba(220, 20, 20, 0.35),
+            0 0 0 12px rgba(220, 20, 20, 0.12);
+    }
+}
+
+@keyframes stop-pulse-delay {
+    0%, 100% {
+        box-shadow:
+            0 0 0 3px rgba(204, 85, 0, 0.25),
+            0 0 0 7px rgba(204, 85, 0, 0.08);
+    }
+    50% {
+        box-shadow:
+            0 0 0 5px rgba(204, 85, 0, 0.35),
+            0 0 0 12px rgba(204, 85, 0, 0.12);
+    }
+}
+
+@keyframes mid-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 0 2px rgba(220, 20, 20, 0.25),
+            0 0 0 5px rgba(220, 20, 20, 0.08);
+    }
+    50% {
+        box-shadow:
+            0 0 0 3px rgba(220, 20, 20, 0.35),
+            0 0 0 8px rgba(220, 20, 20, 0.12);
+    }
+}
+
+@keyframes mid-pulse-delay {
+    0%, 100% {
+        box-shadow:
+            0 0 0 2px rgba(204, 85, 0, 0.25),
+            0 0 0 5px rgba(204, 85, 0, 0.08);
+    }
+    50% {
+        box-shadow:
+            0 0 0 3px rgba(204, 85, 0, 0.35),
+            0 0 0 8px rgba(204, 85, 0, 0.12);
+    }
+}
+
+/* ── Tooltip ───────────────────────────────────────────────── */
+
+.tooltip {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #222;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 100;
+    transform: translate(-50%, -100%);
+    margin-top: -14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    line-height: 1.5;
+    transition: background-color 0.4s, border-color 0.4s, color 0.4s;
+}
+
+body.dark .tooltip {
+    background: #2a2a44;
+    border-color: #555;
+    color: #ddd;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tooltip .tooltip-dest {
+    font-weight: 700;
+    color: #111;
+}
+
+body.dark .tooltip .tooltip-dest {
+    color: #eee;
+}
+
+.tooltip .tooltip-time {
+    color: #dd1111;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.tooltip .tooltip-delay {
+    color: #cc5500;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.tooltip .tooltip-label {
+    color: #888;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tooltip .tooltip-direction {
+    color: #666;
+    font-size: 11px;
+    font-style: italic;
+}
+
+body.dark .tooltip .tooltip-direction {
+    color: #aaa;
+}
+
+.tooltip .tooltip-separator {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 4px 0;
+}
+
+body.dark .tooltip .tooltip-separator {
+    border-top-color: #444;
+}
+
+/* ── Departure panel ───────────────────────────────────────── */
+
+#departure-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px 24px;
+    min-width: 280px;
+    max-width: 400px;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 200;
+    font-size: 13px;
+    line-height: 1.6;
+    transition: background-color 0.4s, border-color 0.4s, color 0.4s;
+}
+
+body.dark #departure-panel {
+    background: #2a2a44;
+    border-color: #555;
+    color: #ddd;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+#departure-panel h3 {
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#departure-panel .dep-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+body.dark #departure-panel .dep-row {
+    border-bottom-color: #3a3a55;
+}
+
+#departure-panel .dep-line {
+    font-weight: 600;
+    min-width: 50px;
+}
+
+#departure-panel .dep-dest {
+    flex: 1;
+    margin: 0 12px;
+}
+
+#departure-panel .dep-time {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: #555;
+}
+
+body.dark #departure-panel .dep-time {
+    color: #aaa;
+}
+
+#departure-panel .dep-delay {
+    color: #cc5500;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+#departure-panel .dep-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
+    line-height: 1;
+}
+
+#departure-panel .dep-close:hover {
+    color: #333;
+}
+
+body.dark #departure-panel .dep-close:hover {
+    color: #eee;
+}
+
+#departure-panel .dep-empty {
+    color: #999;
+    font-style: italic;
+    padding: 8px 0;
+}
+
+/* ── Service gap overlay ───────────────────────────────────── */
+
+.service-gap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #888;
+    font-size: 16px;
+    text-align: center;
+    z-index: 50;
+}
+
+body.dark .service-gap {
+    color: #777;
 }

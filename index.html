@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,17 @@
 </head>
 <body>
     <div id="map">
-        <svg id="lines" width="100%" height="100%" style="position:absolute; top:0; left:0;"></svg>
+        <svg id="lines" width="100%" height="100%"></svg>
+        <div id="clock"></div>
+        <div id="status"></div>
+        <div id="tram-counts"></div>
+        <div id="legend">
+            <div class="legend-row"><span class="legend-swatch" style="background:#e07020"></span> Linje 1 &mdash; Byparken &ndash; Bergen Lufthavn</div>
+            <div class="legend-row"><span class="legend-swatch" style="background:#ccaa00"></span> Linje 2 &mdash; Kaigaten &ndash; Fyllingsdalen</div>
+            <div class="legend-row legend-delay"><span class="legend-swatch" style="background:#cc5500"></span> Forsinket</div>
+        </div>
+        <button id="theme-toggle" title="Bytt tema">&#9790;</button>
+        <div id="departure-panel" style="display:none"></div>
     </div>
     <script src="js/script.js"></script>
 </body>
